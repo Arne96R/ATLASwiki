@@ -1,0 +1,22 @@
+{
+  "name": "pp_project_wiki",
+  "version": "0.0.1",
+  "description": "Personal pursuit project: building a wiki for ATLAS University College",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "ArneR96",
+  "license": "ISC",
+  "dependencies": {
+  	"express": "",
+  	"sequelize": "",
+    "body-parser": "",
+    "underscore": "",
+    "bcryptjs": "",
+    "crypto-js": "",
+    "jsonwebtoken": "",
+    "sequelize": "^3.5.1",
+    "sqlite3": "^3.1.4"
+  }
+}

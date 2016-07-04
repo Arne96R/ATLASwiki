@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+<head>
+	<title>ATLAS wiki</title>
+
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <script src="//cdn.ckeditor.com/4.5.9/standard/ckeditor.js"></script>
+
+</head>
+
+<body>
+    <div>
+        <h1>Post your article</h1>
+    </div>
+    <div class="container">
+    <form method='post' action="/post/submit">
+        <textarea name=editor1></textarea>
+        <script>CKEDITOR.replace('editor1');</script>
+
+        <input type="submit" name="submit article">
+    </form>
+    </div>
+</body>
+</html>
