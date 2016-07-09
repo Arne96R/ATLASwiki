@@ -3,7 +3,7 @@ var cryptojs = require('crypto-js');
 module.exports = function (db) {
 	return {
 		requireAuthentication: function (req, res, next) {
-			var token = req.get('Auth') || '';
+			var token = req.cookies.tauthk || '';
 
 			db.token.findOne({
 				where: {

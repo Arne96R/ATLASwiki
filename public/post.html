@@ -9,7 +9,6 @@
 
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <script src="//cdn.ckeditor.com/4.5.9/standard/ckeditor.js"></script>
-
 </head>
 
 <body>
@@ -17,12 +16,25 @@
         <h1>Post your article</h1>
     </div>
     <div class="container">
-    <form method='post' action="/post/submit">
-        <textarea name=editor1></textarea>
-        <script>CKEDITOR.replace('editor1');</script>
-
-        <input type="submit" name="submit article">
-    </form>
+        <form method="post" action="/post/submit">
+            <br>
+            <select name="category">           
+                <option selected="selected" value="PersonalPursuit">Personal Pursuit</option>
+                <option value="Project">Project</option>
+                <option value="SemesterAbroad">Semester Abroad</option>
+            </select>
+            <br><br>
+            <input type="text" name="title" placeholder="Article title">
+            <br><br>
+            <textarea name="text"></textarea>
+            <script>
+                CKEDITOR.replace('text');
+            </script>
+            <br>
+            <input type="text" name="author" placeholder="Your name" />
+            <br><br>
+            <input type="submit" value="submit article"/>
+        </form>
     </div>
 </body>
 </html>

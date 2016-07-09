@@ -9,14 +9,14 @@
   "author": "ArneR96",
   "license": "ISC",
   "dependencies": {
-  	"express": "",
-  	"sequelize": "",
-    "body-parser": "",
-    "underscore": "",
     "bcryptjs": "",
+    "body-parser": "",
+    "cookie-parser": "",
     "crypto-js": "",
+    "express": "^4.14.0",
     "jsonwebtoken": "",
-    "sequelize": "^3.5.1",
-    "sqlite3": "^3.1.4"
+    "sequelize": "^3.23.4",
+    "sqlite3": "^3.1.4",
+    "underscore": ""
   }
 }
