@@ -17,7 +17,7 @@ app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function (req, res) {
-	res.send('Hi this works');
+	res.sendFile(__dirname + '/public/index.html');
 });
 
 app.get('/browse', function (req, res) {
