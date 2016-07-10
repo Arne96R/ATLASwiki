@@ -97,7 +97,7 @@ app.post('/post/submit', function (req, res) {
 })
 
 
-db.sequelize.sync().then(function() {
+db.sequelize.sync({force:true}).then(function() {
 	app.listen(PORT, function () {
 	console.log('server running on port: ' + PORT);
 	db.user.create({studentnr: 'admin', password: 'admin123'});
