@@ -40,14 +40,14 @@ module.exports = function (sequelize, DataTypes) {
 		classMethods: {
 			findCategory: function (category) {
 				return new Promise(function (resolve, reject) {
-					var ppTitles = [];
+					var articleTitles = [];
 					try {
 						if (typeof category === 'string') {
 							article.findAll({where: {category: category}}).then(function (articles) {
 								articles.forEach(function (article) {
-									ppTitles.push(article.title);
+									articleTitles.push(article.title);
 								});
-								resolve(ppTitles);
+								resolve(articleTitles);
 							}, function (e) {
 								reject();
 							});
@@ -60,16 +60,16 @@ module.exports = function (sequelize, DataTypes) {
 					}
 				})
 			},
-			findTitle: function (title) {
+			findTitle: function (title, category) {
 				return new Promise (function (resolve, reject) {
-					var articleTexts = [];
+					var articles = [];
 					try {
-						if (typeof title === 'string') {
-							article.findAll({where: {title: title}}).then(function (articles) {
+						if (typeof title === 'string' && typeof category === 'string') {
+							article.findAll({where: {title: title, category: category}}).then(function (articles) {
 								articles.forEach(function (article) {
-									articleTexts.push(article.text);
+									articles.push(article);
 								});
-								resolve(articleTexts);
+								resolve(articles);
 							}, function (e) {
 								reject();
 							});

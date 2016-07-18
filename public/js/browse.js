@@ -1,39 +1,39 @@
 $( document ).ready(function () {
-	$( "#1" ).click(function () {
-		var ppTitles = $.ajax({
-			url: "/browse/reqPPtitles"
-		}).then(function (ppTitles) {
-			ppTitles.forEach(function (ppTitle) {
-				$( "#10" ).append('<li class="pp" id="' + ppTitle + '"><a>' + ppTitle + "<a></li>");
-			});
-		}).then(function () {
-			$( ".pp" ).click(function () {
-				var article;
-				var title = this.id;
-				// $.ajax({
-				// 	url: "/browse/pp/article",
-				// 	type: "GET"
-				// }).then(function (res) {
-				// 	$( ".content" ).empty();
-				// 	$( ".content" ).append(res);
-				// 	console.log('request made');				
-				// });
-				$.ajax({
-					url: "/browse/pp/content",
-					type: "GET",
-					data: {
-						title: title
-					}
-				}).then(function (articles) {
-					console.log(articles);
-					article=articles[0];
-					console.log(typeof article);
-					console.log('got articles');
-					window.location.href = "./browse/article";
-					return article;
+	$( ".caty" ).click(function () {
+		if ($("#"+this.id+"Art").is(':empty')){
+			var articleTitles = $.ajax({
+				url: "/browse/reqArticleTitles",
+				type: "GET",
+				data: {
+					category: this.id
+				} 
+			}).then(function (articleTitles) {
+				category = articleTitles.splice(0,1);
+				articleTitles.forEach(function (articleTitle) {
+					$( "#"+category[0]+"Art").append('<li class="'+ category[0] +'" id="' + articleTitle + '"><a>' + articleTitle + "<a></li>");
 				});
-			});
-		});	
+				return category[0];
+			}).then(function (category) {
+				$( "."+category).click(function () {
+					var title = this.id;
+					$.ajax({
+						url: "/browse/article/content",
+						type: "GET",
+						data: {
+							title: title,
+							category: category
+						}
+					}).then(function (articles) {
+						articleTitle=articles[0].title;
+						articleText=articles[0].text;
+						articleAuthor=articles[0].author;
+						$(".content").html('<h1>'+articleTitle+'</h1><br/><br/>'+articleText+'<br/><br/><p><i><small> Written by: '+articleAuthor+'</i></small></p><br/><br/><br/><br/><a href="/browse">Back to Explorer</a>');
+					});
+				});
+			});	
+		} else {
+			$("#"+this.id+"Art").empty();
+		}
 	});
 });
 

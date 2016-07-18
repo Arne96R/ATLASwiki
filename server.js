@@ -17,6 +17,7 @@ app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function (req, res) {
+	res.clearCookie('tauthk');
 	res.sendFile(__dirname + '/public/index.html');
 });
 
@@ -24,27 +25,27 @@ app.get('/browse', function (req, res) {
 	res.sendFile(__dirname + '/public/browse.html');
 });
 
-app.get('/browse/reqPPtitles', function (req, res) {
+app.get('/browse/reqArticleTitles', function (req, res) {
 	// db.article.findAll({where: {category: 'PersonalPursuit'}}).then(function (pps) {
 	// 	console.log(pps);
 	// });
-	db.article.findCategory('PersonalPursuit').then(function (ppTitles) {
+	var category=req.query.category;
+	console.log(category);
+	db.article.findCategory(category).then(function (articleTitles) {
 		// var ppTitles = [];
 		// pps.forEach(function (pp){
 		// 	ppTitles.push(pp.title);
 		// });
-		console.log(ppTitles);
-		res.send(ppTitles);
+		articleTitles.unshift(category);
+		console.log(articleTitles);
+		res.send(articleTitles);
 	});
 });
 
-app.get('/browse/article', function (req, res) {
-	res.sendFile(__dirname + '/public/article.html');
-});
-
-app.get('/browse/pp/content', function (req, res) {
+app.get('/browse/article/content', function (req, res) {
 	var title = req.query.title;
-	db.article.findTitle(title).then(function (articles) {
+	var category = req.query.category;
+	db.article.findTitle(title, category).then(function (articles) {
 		res.send(articles);
 	});
 });
@@ -88,7 +89,7 @@ app.post('/post', function (req, res) {
 	});
 });
 
-app.post('/post/submit', function (req, res) {
+app.post('/post/submit', middleware.requireAuthentication, function (req, res) {
 	console.log('article received');
 	console.log(req.body);
 	db.article.create(req.body);
@@ -97,7 +98,7 @@ app.post('/post/submit', function (req, res) {
 })
 
 
-db.sequelize.sync({force:true}).then(function() {
+db.sequelize.sync().then(function() {
 	app.listen(PORT, function () {
 	console.log('server running on port: ' + PORT);
 	db.user.create({studentnr: 'admin', password: 'admin123'});
