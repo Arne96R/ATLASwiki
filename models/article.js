@@ -81,6 +81,47 @@ module.exports = function (sequelize, DataTypes) {
 						reject();
 					}
 				})
+			}, 
+			search: function (searchParams) {
+				return new Promise (function (resolve, reject) {
+					var results = {};
+					results.titles = [];
+					results.texts = [];
+					results.authors = [];
+
+					try {
+						if (typeof searchParams === 'string') {
+							article.findAll({where: {title: {$like:'%'+searchParams+'%'}}}).then(function (articles) {
+								articles.forEach(function (article) {
+									results.titles.push(article);
+								});
+								article.findAll({where: {text: {$like:'%'+searchParams+'%'}}}).then(function (articles) {
+									articles.forEach(function (article) {
+										results.texts.push(article);
+									});
+									article.findAll({where: {author: {$like:'%'+searchParams+'%'}}}).then(function (articles) {
+										articles.forEach(function (article) {
+											results.authors.push(article);
+										});
+										resolve(results);
+									}, function (e) {
+										reject();
+									});
+								}, function (e) {
+									reject();
+								});
+							}, function(e) {
+								reject();
+							});
+
+						} else {
+							reject();
+						}
+					} catch (e) {
+						console.log(e);
+						reject();
+					}
+				})
 			}
 		}
 	});

@@ -50,6 +50,17 @@ app.get('/browse/article/content', function (req, res) {
 	});
 });
 
+app.get('/search' , function (req, res) {
+	res.sendFile(__dirname + '/public/search.html');
+});
+
+app.get('/search/results', function (req, res) {
+	var search = req.query.searchParams;
+	db.article.search(search).then(function (results) {
+		res.send(results);
+	});
+});
+
 app.get('/user', middleware.requireAuthentication, function (req, res) {
 	res.sendFile(__dirname + '/public/user.html');
 });
