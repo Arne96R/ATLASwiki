@@ -104,6 +104,8 @@ module.exports = function (sequelize, DataTypes) {
 											results.authors.push(article);
 										});
 										resolve(results);
+
+										// should work.. possibly change if not
 									}, function (e) {
 										reject();
 									});
