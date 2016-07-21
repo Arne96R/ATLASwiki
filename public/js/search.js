@@ -33,7 +33,7 @@ $( document ).ready(function () {
 			resultsOnText.forEach(function (result) {
 				$("#textResults").append('<li class="article" id="'+result.title+"-"+result.category+'"><a>'+result.title+"</a>,<i> written by: "+result.author+"</i></li>");
 			});
-			resultsOnTitle.forEach(function (result) {
+			resultsOnAuthor.forEach(function (result) {
 				$("#authorResults").append('<li class="article" id="'+result.title+"-"+result.category+'"><a>'+result.title+"</a>,<i> written by: "+result.author+"</i></li>");
 			});
 			return;
