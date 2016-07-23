@@ -17,8 +17,7 @@ app.use(cookieParser());
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function (req, res) {
-	res.clearCookie('tauthk');
-	res.sendFile(__dirname + '/public/index.html');
+	res.clearCookie('tauthk').clearCookie('u').sendFile(__dirname + '/public/index.html');
 });
 
 app.get('/browse', function (req, res) {
@@ -78,7 +77,7 @@ app.post('/user', middleware.requireAuthentication, function (req, res) {
 
 
 app.get('/login', function (req, res) {
-	res.clearCookie('tauthk');
+	res.clearCookie('tauthk').clearCookie('u');
 	res.sendFile(__dirname + '/public/login.html');
 });
 
@@ -94,7 +93,7 @@ app.post('/post', function (req, res) {
 			token: token
 		});
 	}).then(function (tokenInstance) {		
-		res.cookie('tauthk', tokenInstance.get('token'), {maxAge:7200000}).sendFile(__dirname + '/public/post.html');
+		res.cookie('tauthk', tokenInstance.get('token'), {maxAge:7200000}).cookie('u', userInstance.studentnr, {maxAge: 7200000}).sendFile(__dirname + '/public/post.html');
 	}).catch(function () {
 		res.status(401).sendFile(__dirname + '/public/loginFail.html');
 	});
